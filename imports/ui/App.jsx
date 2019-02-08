@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import Movies from './Movies.jsx';
 
 const App = () => (
-  <div>
+  <Fragment>
     <Movies />
-  </div>
+  </Fragment>
 );
 
 export default App;

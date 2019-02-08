@@ -2,3 +2,13 @@ body {
   padding: 10px;
   font-family: sans-serif;
 }
+
+h1 {
+    text-align: center;
+}
+
+.moviesContainer {
+  display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

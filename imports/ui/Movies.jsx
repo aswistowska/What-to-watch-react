@@ -44,14 +44,18 @@ const styles = {
 };
 
 
-const BASIC_URL = 'https://api.themoviedb.org/3/movie/popular?';
+const BASIC_URL = 'https://api.themoviedb.org/3/movie/';
 const API_KEY = 'api_key=b73a05f4286a2af4e2caf142d739fcd7';
+
+function urlBuilder(category) {
+    return BASIC_URL + category + '?' + API_KEY;
+}
 
 function FetchMovies(props) {
     const [moviesState, setMovies] = useState([]);
 
     useEffect(() => {
-        axios.get(BASIC_URL + API_KEY)
+        axios.get(urlBuilder(props.category))
             .then(({data}) => {
                 setMovies(data.results)
             })
@@ -65,23 +69,24 @@ function FetchMovies(props) {
     )
 }
 
-class CenteredTabs extends React.Component {
-    state = {
-        value: 'popular',
-    };
+function MoviesContainer(props) {
+    return (
+        <div className='moviesContainer'>
+            {props.movies.map((movie) => <Movie key={movie.id} movie={movie}/>)}
+        </div>
+    )
+}
 
-    handleChange = (event, value) => {
-        this.setState({value});
-    };
+class CenteredTabs extends React.Component {
 
     render() {
-        const {classes} = this.props;
+        const {classes, category} = this.props;
 
         return (
             <Paper className={classes.root}>
                 <Tabs
-                    value={this.state.value}
-                    onChange={this.handleChange}
+                    value={category}
+                    onChange={this.props.handleChange}
                     indicatorColor='primary'
                     textColor="primary"
                     centered
@@ -98,16 +103,15 @@ class CenteredTabs extends React.Component {
 
 const StyledTabs = withStyles(styles)(CenteredTabs);
 
-function MoviesContainer(props) {
+function MoviesPage(props) {
+    const [category, setCategory] = useState('popular');
 
     return (
         <Fragment>
             <MuiThemeProvider theme={theme}>
-                <StyledTabs/>
+                <StyledTabs category={category} handleChange={(event, value) => setCategory(value)}/>
                 <h1>It's movies time!</h1>
-                <div className='moviesContainer'>
-                    {props.movies.map((movie) => <Movie key={movie.id} movie={movie}/>)}
-                </div>
+                <FetchMovies category={category}/>
             </MuiThemeProvider>
         </Fragment>
     );
@@ -118,4 +122,4 @@ function MoviesContainer(props) {
 //         movies: json.results,
 //     };
 // })(MoviesContainer);
-export default FetchMovies;
+export default MoviesPage;

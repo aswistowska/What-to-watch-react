@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class Hello extends Component {
   state = {
     counter: 0,
-  }
+  };
 
   increment() {
     this.setState({

@@ -12,3 +12,8 @@ h1 {
     flex-direction: row;
     flex-wrap: wrap;
 }
+
+.tabCustomStyle {
+  display: flex;
+  flex-direction: row;
+}

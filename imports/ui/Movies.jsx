@@ -3,11 +3,13 @@ import {withTracker} from 'meteor/react-meteor-data';
 import Movies from '../api/movies';
 import Movie from './Movie';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 import {withStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Button from '@material-ui/core/Button';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 
 
@@ -40,6 +42,12 @@ const theme = createMuiTheme({
 const styles = {
     root: {
         flexGrow: 1,
+    },
+    button: {
+        margin: theme.spacing.unit,
+    },
+    input: {
+        display: 'none',
     },
 };
 
@@ -83,20 +91,30 @@ class CenteredTabs extends React.Component {
         const {classes, category} = this.props;
 
         return (
-            <Paper className={classes.root}>
-                <Tabs
-                    value={category}
-                    onChange={this.props.handleChange}
-                    indicatorColor='primary'
-                    textColor="primary"
-                    centered
-                >
-                    <Tab label="popular" value='popular'/>
-                    <Tab label="Top Rated" value='top_rated'/>
-                    <Tab label="Now Playing" value='now_playing'/>
-                    <Tab label="Favourites" value='favourites'/>
-                </Tabs>
-            </Paper>
+            <div className='tabCustomStyle'>
+                <Button size="large" variant="contained" color="secondary" className={classes.button}
+                        component={Link} to="/">
+                    Home
+                </Button>
+                <Paper className={classes.root}>
+                    <Tabs
+                        value={category}
+                        onChange={this.props.handleChange}
+                        indicatorColor='primary'
+                        textColor="primary"
+                        centered
+                    >
+                        <Tab label="popular" value='popular' component={Link} to="/movies/popular"/>
+                        <Tab label="Top Rated" value='top_rated' component={Link} to="/movies/top_rated"/>
+                        <Tab label="Now Playing" value='now_playing' component={Link} to="/movies/now_playing"/>
+                        <Tab label="Favourites" value='favourites' component={Link} to="/movies/favourites"/>
+                    </Tabs>
+                </Paper>
+                <Button size="large" variant="contained" color="secondary" className={classes.button}
+                        component={Link} to="/log_in">
+                    Log in
+                </Button>
+            </div>
         );
     }
 }

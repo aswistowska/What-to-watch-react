@@ -1,6 +1,8 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import Movies from '../api/movies';
+import { Link } from "react-router-dom";
+
 import { withStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -40,8 +42,8 @@ function Movie(props) {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="secondary">
-                    Learn More
+                <Button size="small" color="secondary" component={Link} to={`/movie/${props.movie.id}`}>
+                    Get More
                 </Button>
             </CardActions>
         </Card>

@@ -7,13 +7,23 @@ h1 {
     text-align: center;
 }
 
+.tabCustomStyle {
+    display: flex;
+    flex-direction: row;
+}
+
 .moviesContainer {
   display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
-.tabCustomStyle {
-  display: flex;
-  flex-direction: row;
+.movie-details-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.movie-details-contents {
+    display: flex;
+    flex-direction: column;
 }

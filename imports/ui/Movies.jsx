@@ -1,16 +1,13 @@
-import React, {Component, Fragment, useState, useEffect} from 'react';
+import React, {Fragment, useState} from 'react';
 import {withTracker} from 'meteor/react-meteor-data';
-import Movies from '../api/movies';
-import Movie from './Movie';
-import axios from 'axios';
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
-import {withStyles} from '@material-ui/core/styles';
+import {createMuiTheme, MuiThemeProvider, withStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import {FetchMovies} from "./FetchMovies";
 
 
 const theme = createMuiTheme({
@@ -51,73 +48,38 @@ const styles = {
     },
 };
 
-
-const BASIC_URL = 'https://api.themoviedb.org/3/movie/';
-const API_KEY = 'api_key=b73a05f4286a2af4e2caf142d739fcd7';
-
-function urlBuilder(category) {
-    return BASIC_URL + category + '?' + API_KEY;
-}
-
-function FetchMovies(props) {
-    const [moviesState, setMovies] = useState([]);
-
-    useEffect(() => {
-        axios.get(urlBuilder(props.category))
-            .then(({data}) => {
-                setMovies(data.results)
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    });
+function CenteredTabs(props) {
+    const {classes, category} = props;
 
     return (
-        <MoviesContainer movies={moviesState}/>
-    )
-}
-
-function MoviesContainer(props) {
-    return (
-        <div className='moviesContainer'>
-            {props.movies.map((movie) => <Movie key={movie.id} movie={movie}/>)}
+        <div className='tabCustomStyle'>
+            <Button size="large" variant="contained" color="secondary" className={classes.button}
+                    component={Link} to="/">
+                Home
+            </Button>
+            <Paper className={classes.root}>
+                <Tabs
+                    value={category}
+                    onChange={props.handleChange}
+                    indicatorColor='primary'
+                    textColor="primary"
+                    centered
+                >
+                    <Tab label="popular" value='popular' component={Link} to="/movies/popular"/>
+                    <Tab label="Top Rated" value='top_rated' component={Link} to="/movies/top_rated"/>
+                    <Tab label="Now Playing" value='now_playing' component={Link} to="/movies/now_playing"/>
+                    <Tab label="Favourites" value='favourites' component={Link} to="/movies/favourites"/>
+                </Tabs>
+            </Paper>
+            <Button size="large" variant="contained" color="secondary" className={classes.button}
+                    component={Link} to="/log_in">
+                Log in
+            </Button>
         </div>
-    )
+    );
 }
 
-class CenteredTabs extends React.Component {
 
-    render() {
-        const {classes, category} = this.props;
-
-        return (
-            <div className='tabCustomStyle'>
-                <Button size="large" variant="contained" color="secondary" className={classes.button}
-                        component={Link} to="/">
-                    Home
-                </Button>
-                <Paper className={classes.root}>
-                    <Tabs
-                        value={category}
-                        onChange={this.props.handleChange}
-                        indicatorColor='primary'
-                        textColor="primary"
-                        centered
-                    >
-                        <Tab label="popular" value='popular' component={Link} to="/movies/popular"/>
-                        <Tab label="Top Rated" value='top_rated' component={Link} to="/movies/top_rated"/>
-                        <Tab label="Now Playing" value='now_playing' component={Link} to="/movies/now_playing"/>
-                        <Tab label="Favourites" value='favourites' component={Link} to="/movies/favourites"/>
-                    </Tabs>
-                </Paper>
-                <Button size="large" variant="contained" color="secondary" className={classes.button}
-                        component={Link} to="/log_in">
-                    Log in
-                </Button>
-            </div>
-        );
-    }
-}
 
 const StyledTabs = withStyles(styles)(CenteredTabs);
 

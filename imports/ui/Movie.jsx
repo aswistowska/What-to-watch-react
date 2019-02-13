@@ -9,12 +9,12 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 const styles = {
     card: {
         maxWidth: 345,
+        width: 345,
     },
     media: {
         height: 140,
@@ -26,25 +26,22 @@ function Movie(props) {
     const { classes } = props;
     return (
         <Card className={classes.card}>
-            <CardActionArea>
+            <CardActionArea component={Link} to={`/movie/${props.movie.id}`}>
                 <CardMedia
                     className={classes.media}
-                    image={`https://image.tmdb.org/t/p/w500/${props.movie.poster_path}`}
+                    image={`https://image.tmdb.org/t/p/w500/${props.movie.backdrop_path}`}
                     title="Poster image"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
                         {props.movie.title}
                     </Typography>
-                    <Typography component="p">
-                        {props.movie.overview}
-                    </Typography>
+                    {/*<Typography component="p">*/}
+                        {/*{props.movie.overview}*/}
+                    {/*</Typography>*/}
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="secondary" component={Link} to={`/movie/${props.movie.id}`}>
-                    Get More
-                </Button>
             </CardActions>
         </Card>
     );

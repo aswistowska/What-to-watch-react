@@ -18,12 +18,36 @@ h1 {
     flex-wrap: wrap;
 }
 
+.movieDetails {
+    color: #ffffff;
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    padding: 10px;
+}
+
 .movie-details-container {
     display: flex;
     flex-direction: row;
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.movie-details-container img {
+    margin-bottom: 10px;
 }
 
 .movie-details-contents {
     display: flex;
+    min-height: 450px;
     flex-direction: column;
+    align-items: flex-start;
+    align-content: center;
+    width: 700px;
+    box-sizing: border-box;
+    padding-left: 40px;
 }

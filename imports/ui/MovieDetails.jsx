@@ -28,6 +28,7 @@ const IconButtonsWithStyles = withStyles(styles)(IconButtons);
 function MovieDetails(props) {
     return (
         <Fragment>
+
             <div className='movieDetails'
                  style={{backgroundImage: `linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.8)), url(https://image.tmdb.org/t/p/w1400_and_h450_face/${props.movie.backdrop_path})`}}>
             <h1>{props.movie.tagline}</h1>

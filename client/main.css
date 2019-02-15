@@ -3,8 +3,20 @@ body {
   font-family: sans-serif;
 }
 
-h1 {
+header {
+    margin-bottom: 10px;
+}
+
+.home-title {
+    margin-bottom: 10px;
+    text-align: left;
+    font-size: 80px;
+}
+
+.home-subtitle {
+    margin-top: 0px;
     text-align: center;
+    font-size: 100px;
 }
 
 .tabCustomStyle {

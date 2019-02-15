@@ -1,10 +1,14 @@
 import {Fragment} from "react";
 import React from "react";
-import Movies from '../api/movies';
+import {Meteor} from 'meteor/meteor';
 
 import {withStyles} from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
+
+import Movies from '../api/movies';
+import Movie from "./Movie";
+import Favourites from "../api/favourites";
 
 
 const styles = {
@@ -16,8 +20,9 @@ const styles = {
 
 function IconButtons(props) {
     const {classes} = props;
+
     return (
-        <IconButton color="secondary" className={classes.button} aria-label="Add to favourites">
+        <IconButton onClick={props.onClick} color="secondary" className={classes.button} aria-label="Add to favourites">
             <Icon>favorite</Icon>
         </IconButton>
     );
@@ -37,7 +42,7 @@ function MovieDetails(props) {
                 <div className='movie-details-contents'>
                     <h2>{props.movie.title}<span>({props.movie.release_date.substring(0,4)})</span></h2>
                     <p>{props.movie.runtime} min</p>
-                    <p>{props.movie.vote_average}/10 <IconButtonsWithStyles/></p>
+                    <p>{props.movie.vote_average}/10 <IconButtonsWithStyles onClick={props.toggleFavourite}/></p>
                     <h3>Overview</h3>
                     <p>{props.movie.overview}</p>
                 </div>

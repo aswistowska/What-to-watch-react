@@ -7,8 +7,9 @@ function Home(props) {
 
     return (
         <Fragment>
-            <h1>It's home page!</h1>
             <AccountsUIWrapper />
+            <h1 className='home-title'>Welcome to</h1>
+            <h2 className='home-subtitle'>What to Watch</h2>
         </Fragment>
     );
 }

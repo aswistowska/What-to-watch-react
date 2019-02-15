@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import {Meteor} from 'meteor/meteor';
 import MovieDetails from './MovieDetails'
 import Loading from "./Loading";
+import Favourites from "../api/favourites";
 
 const BASIC_URL = 'https://api.themoviedb.org/3/movie/';
 const API_KEY = 'api_key=b73a05f4286a2af4e2caf142d739fcd7';
@@ -9,6 +11,7 @@ const API_KEY = 'api_key=b73a05f4286a2af4e2caf142d739fcd7';
 function urlBuilder(id) {
     return BASIC_URL + id + '?' + API_KEY;
 }
+
 
 export function FetchMovieDetails(props) {
     const [movie, setMovie] = useState({});
@@ -29,6 +32,7 @@ export function FetchMovieDetails(props) {
 
 
     return (
-        Object.keys(movie).length ? (<MovieDetails movie={movie}/>) : (<Loading/>)
+        Object.keys(movie).length ?
+            (<MovieDetails movie={movie} toggleFavourite={() => Meteor.call('toggleFavourite', movie)}/>) : (<Loading/>)
     )
 }

@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import { BrowserRouter, Route, Switch} from 'react-router-dom'
 import Movies from './Movies.jsx';
 import Home from './Home.jsx';
+import FavouritesList from './Favourites';
 import {FetchMovieDetails} from "./FetchMovieDetails";
 import CenteredTabs from "./CenteredTabs";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";
@@ -45,6 +46,7 @@ const App = () => (
             </header>
             <Fragment>
                 <Route exact path='/' component={Home} />
+                <Route exact path='/movies/favourites' component={FavouritesList} />
                 <Route path='/movies/:category' component={
                     (props) => <Movies category={props.match.params.category} />} />
                 <Route path='/movie/:id' component={(props)=> <FetchMovieDetails id={props.match.params.id} />}/>

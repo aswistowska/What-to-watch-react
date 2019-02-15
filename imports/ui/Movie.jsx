@@ -36,9 +36,6 @@ function Movie(props) {
                     <Typography gutterBottom variant="h5" component="h2">
                         {props.movie.title}
                     </Typography>
-                    {/*<Typography component="p">*/}
-                        {/*{props.movie.overview}*/}
-                    {/*</Typography>*/}
                 </CardContent>
             </CardActionArea>
             <CardActions>

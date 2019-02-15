@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Meteor} from 'meteor/meteor';
+import { Session } from 'meteor/session'
+
 import MovieDetails from './MovieDetails'
 import Loading from "./Loading";
 import Favourites from "../api/favourites";
@@ -15,6 +17,7 @@ function urlBuilder(id) {
 
 export function FetchMovieDetails(props) {
     const [movie, setMovie] = useState({});
+
     useEffect(() => {
         let visible = true;
         axios.get(urlBuilder(props.id))
@@ -30,9 +33,14 @@ export function FetchMovieDetails(props) {
         }
     },  [props.id]);
 
+    const toggleFavourite = () =>  Meteor.call('toggleFavourite', movie, function (error) {
+        if (error && error.error === "favourites.notLoggedIn") {
+            Session.set("errorMessage", "Please log in for add movie to a favourites.");
+        }
+    });
 
     return (
         Object.keys(movie).length ?
-            (<MovieDetails movie={movie} toggleFavourite={() => Meteor.call('toggleFavourite', movie)}/>) : (<Loading/>)
+            (<MovieDetails movie={movie} toggleFavourite={toggleFavourite}/>) : (<Loading/>)
     )
 }

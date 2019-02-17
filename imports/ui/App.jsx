@@ -1,10 +1,13 @@
 import React, {Fragment} from 'react';
 import { BrowserRouter, Route, Switch} from 'react-router-dom'
+
 import Movies from './Movies.jsx';
 import Home from './Home.jsx';
 import FavouritesList from './Favourites';
 import FetchMovieDetails from "./FetchMovieDetails";
 import CenteredTabs from "./CenteredTabs";
+import SharedFavourites from './SharedFavourites';
+
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";
 import AccountsUIWrapper from "./AccountsUIWrapper";
 
@@ -52,6 +55,7 @@ const App = () => (
                 <Route path='/movies/:category' component={
                     (props) => <Movies category={props.match.params.category} />} />
                 <Route path='/movie/:id' component={(props)=> <FetchMovieDetails id={props.match.params.id} />}/>
+                    <Route path='/shared/:userId' component={(props) => <SharedFavourites userId={props.match.params.userId}/>}/>
                 </Switch>
             </Fragment>
             </Fragment>

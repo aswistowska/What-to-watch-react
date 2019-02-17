@@ -17,6 +17,10 @@ const styles = {
     input: {
         display: 'none',
     },
+    button: {
+        border: '2px solid white',
+        marginLeft: '10px',
+    }
 };
 
 
@@ -25,7 +29,7 @@ function IconButtons(props) {
 
     return (
         <Tooltip title='Add to favourites'>
-        <IconButton onClick={props.onClick} color="secondary" className='favouriteButton' aria-label="Add to favourites">
+        <IconButton onClick={props.onClick} color="secondary" className={classes.button} aria-label="Add to favourites">
             {props.isFavourite === 1 ? (<Icon>favorite</Icon>) : (<Icon style={{color: 'white'}}>favorite_border</Icon>)}
         </IconButton>
         </Tooltip>

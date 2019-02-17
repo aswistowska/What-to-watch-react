@@ -41,4 +41,8 @@ Meteor.publish('isFavourite', function (movieId) {
     return Favourites.find({_id: id})
 });
 
+Meteor.publish('sharedFavourites', function (userId) {
+    return Favourites.find({user: userId})
+});
+
 export default Favourites;

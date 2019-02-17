@@ -12,6 +12,8 @@ function FavouritesList(props) {
     return (
         <Fragment>
             <h1>We are your favs! :)</h1>
+            <a href={'//' + location.hostname + '/shared/' + Meteor.userId()}>
+                {location.protocol + '//' + location.hostname + '/shared/' + Meteor.userId()}</a>
             <MoviesContainer movies={props.favorites}/>
         </Fragment>
     )

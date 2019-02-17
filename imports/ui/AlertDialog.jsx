@@ -19,7 +19,7 @@ function AlertDialog(props) {
     return (
         <div>
             <Dialog
-                open={props.error}
+                open={!!props.error}
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"

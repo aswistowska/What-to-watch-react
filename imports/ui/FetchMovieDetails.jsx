@@ -1,37 +1,18 @@
-import React, {useEffect, useState} from "react";
-import axios from "axios";
+import React from "react";
 import {Meteor} from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 import { Session } from 'meteor/session'
+import { withTracker } from 'meteor/react-meteor-data';
 
 import MovieDetails from './MovieDetails'
 import Loading from "./Loading";
 import Favourites from "../api/favourites";
 
-const BASIC_URL = 'https://api.themoviedb.org/3/movie/';
-const API_KEY = 'api_key=b73a05f4286a2af4e2caf142d739fcd7';
+const Movies = new Mongo.Collection('movies');
 
-function urlBuilder(id) {
-    return BASIC_URL + id + '?' + API_KEY;
-}
+function FetchMovieDetails(props) {
 
-
-export function FetchMovieDetails(props) {
-    const [movie, setMovie] = useState({});
-
-    useEffect(() => {
-        let visible = true;
-        axios.get(urlBuilder(props.id))
-            .then(({data}) => {
-                if(visible) {
-                    setMovie(data);
-                }
-            },)
-            .catch(function (error) {
-                console.log(error);
-            });
-        return () => {visible = false;
-        }
-    },  [props.id]);
+    const movie = props.movie;
 
     const toggleFavourite = () =>  Meteor.call('toggleFavourite', movie, function (error) {
         if (error && error.error === "favourites.notLoggedIn") {
@@ -44,3 +25,16 @@ export function FetchMovieDetails(props) {
             (<MovieDetails movie={movie} toggleFavourite={toggleFavourite}/>) : (<Loading/>)
     )
 }
+
+export default FetchMovieDetailswithTracker = withTracker(({id}) => {
+
+    const movieDetailsHandle = Meteor.subscribe('fetchMovieDetails', id);
+
+    const movie = movieDetailsHandle.ready() ? Movies.findOne(id) : {};
+
+    return {
+        id: id,
+        movie: movie,
+        loading: !movieDetailsHandle.ready(),
+    }
+})(FetchMovieDetails)

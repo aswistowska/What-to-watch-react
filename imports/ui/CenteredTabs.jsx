@@ -5,6 +5,7 @@ import Tabs from "@material-ui/core/Tabs/Tabs";
 import Tab from "@material-ui/core/Tab/Tab";
 import {createMuiTheme, withStyles} from "@material-ui/core";
 import React, {useState} from "react";
+import AccountsUIWrapper from "./AccountsUIWrapper";
 
 
 const theme = createMuiTheme({
@@ -50,9 +51,8 @@ function CenteredTabs(props) {
                     <Tab label="Favourites" value='favourites' component={Link} to="/movies/favourites"/>
                 </Tabs>
             </Paper>
-            <Button size="large" variant="contained" color="secondary" className={classes.button}
-                    component={Link} to="/log_in">
-                Log in
+            <Button size="large" variant="contained" color="secondary" className={classes.button}>
+                <AccountsUIWrapper />
             </Button>
         </div>
     );

@@ -7,7 +7,6 @@ import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 
 import AlertDialogWithTracker from './AlertDialog';
-import Movies from '../api/movies';
 import Movie from "./Movie";
 import Favourites from "../api/favourites";
 

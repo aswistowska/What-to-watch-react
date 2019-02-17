@@ -1,6 +1,5 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import Movies from '../api/movies';
 import { Link } from "react-router-dom";
 
 import { withStyles} from '@material-ui/core/styles';
@@ -38,8 +37,6 @@ function Movie(props) {
                     </Typography>
                 </CardContent>
             </CardActionArea>
-            <CardActions>
-            </CardActions>
         </Card>
     );
 }

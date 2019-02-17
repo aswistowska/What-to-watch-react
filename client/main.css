@@ -7,6 +7,19 @@ header {
     margin-bottom: 10px;
 }
 
+#login-dropdown-list {
+    top: 1px;
+    left: -175px;
+}
+
+#login-buttons .login-close-text {
+    float: right;
+}
+
+#login-buttons a {
+    text-decoration: none;
+}
+
 .home-title {
     margin-bottom: 10px;
     text-align: left;

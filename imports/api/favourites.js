@@ -1,7 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 
-const Favourites = new Mongo.Collection('favourites');
+import {Favourites} from './collections';
 
 Favourites.deny({
     insert() { return true; },
@@ -22,12 +22,23 @@ Meteor.methods({
 
         if(Favourites.find({_id: id}).count() === 0){
             Favourites.insert({_id: id, user: userId, movie: movie});
-            console.log('dodane');
+
         } else {
             Favourites.remove({_id: id});
-            console.log('usuniete');
+
         }
     }
+});
+
+Meteor.publish('myFavourites', function () {
+    return Favourites.find({user: this.userId})
+});
+
+Meteor.publish('isFavourite', function (movieId) {
+    const userId = this.userId;
+    const id = `${userId}-${movieId}`;
+    console.log("isFavourite", movieId);
+    return Favourites.find({_id: id})
 });
 
 export default Favourites;

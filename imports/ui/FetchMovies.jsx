@@ -1,29 +1,29 @@
-import React, {useEffect, useState} from "react";
-import axios from "axios";
+import React from "react";
+import { Mongo } from 'meteor/mongo';
+import { withTracker } from 'meteor/react-meteor-data';
 
 import MoviesContainer from './MoviesContainer';
+import {MoviesListsCache} from '../api/collections';
 
-const BASIC_URL = 'https://api.themoviedb.org/3/movie/';
-const API_KEY = 'api_key=b73a05f4286a2af4e2caf142d739fcd7';
 
-function urlBuilder(category) {
-    return BASIC_URL + category + '?' + API_KEY;
-}
-
-export function FetchMovies(props) {
-    const [moviesState, setMovies] = useState([]);
-
-    useEffect(() => {
-        axios.get(urlBuilder(props.category))
-            .then(({data}) => {
-                setMovies(data.results)
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    });
+function FetchMovies(props) {
 
     return (
-        <MoviesContainer movies={moviesState}/>
+        <MoviesContainer movies={props.moviesList}/>
     )
 }
+
+export default FetchMovieswithTracker = withTracker(({category, page}) => {
+
+    const moviesListHandle = Meteor.subscribe('fetchMoviesList', category, page);
+
+    const id = `${category}-${page}`;
+
+console.log(MoviesListsCache.findOne(id));
+    const moviesList = moviesListHandle.ready() ? MoviesListsCache.findOne(id).results : [];
+
+    return {
+        moviesList: moviesList,
+        loading: !moviesListHandle.ready(),
+    }
+})(FetchMovies)

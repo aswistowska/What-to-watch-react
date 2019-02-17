@@ -1,7 +1,7 @@
 import {HTTP} from 'meteor/http';
+import { Mongo } from 'meteor/mongo';
 
-
-const Movies = new Mongo.Collection('movies');
+import {Movies} from './collections';
 
 const BASIC_URL = 'https://api.themoviedb.org/3/movie/';
 const API_KEY = 'api_key=b73a05f4286a2af4e2caf142d739fcd7';

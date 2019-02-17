@@ -37,6 +37,12 @@ header {
     flex-direction: row;
 }
 
+.favouriteButton {
+    border: 2px solid white;
+    margin-left: 10px;
+
+}
+
 .moviesContainer {
   display: flex;
     flex-direction: row;

@@ -46,11 +46,13 @@ const App = () => (
                 </Switch>
             </header>
             <Fragment>
+                <Switch>
                 <Route exact path='/' component={Home} />
                 <Route exact path='/movies/favourites' component={FavouritesList} />
                 <Route path='/movies/:category' component={
                     (props) => <Movies category={props.match.params.category} />} />
                 <Route path='/movie/:id' component={(props)=> <FetchMovieDetails id={props.match.params.id} />}/>
+                </Switch>
             </Fragment>
             </Fragment>
             </MuiThemeProvider>

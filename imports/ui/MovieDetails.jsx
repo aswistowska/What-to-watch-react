@@ -1,15 +1,17 @@
 import {Fragment} from "react";
 import React from "react";
 import {Meteor} from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
+import { withTracker } from 'meteor/react-meteor-data';
 
 import {withStyles} from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import AlertDialogWithTracker from './AlertDialog';
 import Movie from "./Movie";
-import Favourites from "../api/favourites";
-
+import {Favourites} from "../api/collections";
 
 const styles = {
     input: {
@@ -22,11 +24,14 @@ function IconButtons(props) {
     const {classes} = props;
 
     return (
-        <IconButton onClick={props.onClick} color="secondary" className={classes.button} aria-label="Add to favourites">
-            <Icon>favorite</Icon>
+        <Tooltip title='Add to favourites'>
+        <IconButton onClick={props.onClick} color="secondary" className='favouriteButton' aria-label="Add to favourites">
+            {props.isFavourite === 1 ? (<Icon>favorite</Icon>) : (<Icon style={{color: 'white'}}>favorite_border</Icon>)}
         </IconButton>
+        </Tooltip>
     );
 }
+
 
 const IconButtonsWithStyles = withStyles(styles)(IconButtons);
 
@@ -42,7 +47,7 @@ function MovieDetails(props) {
                 <div className='movie-details-contents'>
                     <h2>{props.movie.title}<span>({props.movie.release_date.substring(0,4)})</span></h2>
                     <p>{props.movie.runtime} min</p>
-                    <p>{props.movie.vote_average}/10 <IconButtonsWithStyles onClick={props.toggleFavourite}/></p>
+                    <p>{props.movie.vote_average}/10 <IconButtonsWithStyles onClick={props.toggleFavourite} isFavourite={props.movie.isFavourite}/></p>
                     <h3>Overview</h3>
                     <p>{props.movie.overview}</p>
                 </div>

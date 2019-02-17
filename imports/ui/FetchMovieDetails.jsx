@@ -6,9 +6,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 import MovieDetails from './MovieDetails'
 import Loading from "./Loading";
-import Favourites from "../api/favourites";
-
-const Movies = new Mongo.Collection('movies');
+import {Favourites, Movies} from '../api/collections';
 
 function FetchMovieDetails(props) {
 
@@ -21,7 +19,7 @@ function FetchMovieDetails(props) {
     });
 
     return (
-        Object.keys(movie).length ?
+        Object.keys(movie).length !== 1 ?
             (<MovieDetails movie={movie} toggleFavourite={toggleFavourite}/>) : (<Loading/>)
     )
 }
@@ -29,12 +27,19 @@ function FetchMovieDetails(props) {
 export default FetchMovieDetailswithTracker = withTracker(({id}) => {
 
     const movieDetailsHandle = Meteor.subscribe('fetchMovieDetails', id);
+    const isFavouriteHandle = Meteor.subscribe('isFavourite', id);
+
+    const userId = Meteor.userId();
+    const favoriteId = `${userId}-${id}`;
 
     const movie = movieDetailsHandle.ready() ? Movies.findOne(id) : {};
+    movie.isFavourite = isFavouriteHandle.ready() ? Favourites.find({_id: favoriteId}).count() : 0;
+
 
     return {
         id: id,
         movie: movie,
         loading: !movieDetailsHandle.ready(),
+        // isFavourite: isFavourite
     }
 })(FetchMovieDetails)

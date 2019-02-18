@@ -1,6 +1,6 @@
 import React from "react";
-import { Mongo } from 'meteor/mongo';
-import { withTracker } from 'meteor/react-meteor-data';
+import {Mongo} from 'meteor/mongo';
+import {withTracker} from 'meteor/react-meteor-data';
 
 import MoviesContainer from './MoviesContainer';
 import {MoviesListsCache} from '../api/collections';
@@ -19,10 +19,19 @@ export default FetchMovieswithTracker = withTracker(({category, page}) => {
 
     const id = `${category}-${page}`;
 
-    const moviesList = moviesListHandle.ready() ? MoviesListsCache.findOne(id).results : [];
+    if (moviesListHandle.ready()) {
+        const cached = MoviesListsCache.findOne(id);
 
-    return {
-        moviesList: moviesList,
-        loading: !moviesListHandle.ready(),
+        return {
+            moviesList: cached.results,
+            loading: false,
+            totalPages: cached.total_pages,
+        }
     }
+    return {
+        'moviesList': [],
+        loading: true,
+        totalPages: 0
+    }
+
 })(FetchMovies)

@@ -1,6 +1,5 @@
 import {Fragment} from "react";
 import React from "react";
-import AccountsUIWrapper from './AccountsUIWrapper';
 
 
 function Home(props) {

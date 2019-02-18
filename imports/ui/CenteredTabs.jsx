@@ -3,9 +3,12 @@ import {Link} from "react-router-dom";
 import Paper from "@material-ui/core/Paper/Paper";
 import Tabs from "@material-ui/core/Tabs/Tabs";
 import Tab from "@material-ui/core/Tab/Tab";
+
 import {createMuiTheme, withStyles} from "@material-ui/core";
-import React, {useState} from "react";
+
+import React, {Fragment, useState} from "react";
 import AccountsUIWrapper from "./AccountsUIWrapper";
+import SearchAppBar from "./SearchAppBar";
 
 
 const theme = createMuiTheme({
@@ -31,11 +34,8 @@ function CenteredTabs(props) {
     const {classes, category} = props;
 
     return (
+        <Fragment>
         <div className='tabCustomStyle'>
-            {/*<Button size="large" variant="contained" color="secondary" className={classes.button}*/}
-                    {/*component={Link} to="/">*/}
-                {/*Home*/}
-            {/*</Button>*/}
             <Paper className={classes.root}>
                 <Tabs
                     value={category}
@@ -55,6 +55,8 @@ function CenteredTabs(props) {
                 <AccountsUIWrapper />
             </Button>
         </div>
+            <SearchAppBar/>
+        </Fragment>
     );
 }
 

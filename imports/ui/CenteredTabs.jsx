@@ -55,7 +55,7 @@ function CenteredTabs(props) {
                 <AccountsUIWrapper />
             </Button>
         </div>
-            <SearchAppBar/>
+            <SearchAppBar />
         </Fragment>
     );
 }

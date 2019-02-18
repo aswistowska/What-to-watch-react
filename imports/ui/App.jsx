@@ -7,6 +7,7 @@ import FavouritesList from './Favourites';
 import FetchMovieDetails from "./FetchMovieDetails";
 import CenteredTabs from "./CenteredTabs";
 import SharedFavourites from './SharedFavourites';
+import SearchResults from './SearchResults';
 
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";
 import AccountsUIWrapper from "./AccountsUIWrapper";
@@ -61,6 +62,7 @@ const App = () => (
                                component={(props) => <FetchMovieDetails id={props.match.params.id}/>}/>
                         <Route path='/shared/:userId'
                                component={(props) => <SharedFavourites userId={props.match.params.userId}/>}/>
+                        <Route path='/search' component={(props) => <SearchResults location={props.location.search}/>}/>
                     </Switch>
                 </Fragment>
             </Fragment>

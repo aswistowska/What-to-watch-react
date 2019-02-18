@@ -16,6 +16,7 @@ const styles = {
     },
     media: {
         height: 140,
+        backgroundColor: '#dbdbdb',
     },
 };
 
@@ -27,7 +28,7 @@ function Movie(props) {
             <CardActionArea component={Link} to={`/movie/${props.movie.id}`}>
                 <CardMedia
                     className={classes.media}
-                    image={`https://image.tmdb.org/t/p/w500/${props.movie.backdrop_path}`}
+                    image={`https://image.tmdb.org/t/p/w500/${props.movie.backdrop_path || props.movie.poster_path}`}
                     title="Poster image"
                 />
                 <CardContent>

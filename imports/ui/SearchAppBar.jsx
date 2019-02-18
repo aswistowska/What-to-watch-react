@@ -1,12 +1,10 @@
-import React from 'react';
+import React, {useRef} from 'react';
+import { withRouter } from 'react-router-dom'
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import { fade } from '@material-ui/core/styles/colorManipulator';
-import { withStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
+import {withStyles} from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 
 const styles = theme => ({
@@ -16,12 +14,12 @@ const styles = theme => ({
     grow: {
         flexGrow: 1,
     },
-
     search: {
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
         marginLeft: 0,
         width: '100%',
+
     },
     searchIcon: {
         width: theme.spacing.unit * 9,
@@ -33,6 +31,7 @@ const styles = theme => ({
         justifyContent: 'center',
     },
     inputRoot: {
+        color: 'inherit',
         width: '100%',
     },
     inputInput: {
@@ -40,28 +39,43 @@ const styles = theme => ({
         paddingRight: theme.spacing.unit,
         paddingBottom: theme.spacing.unit,
         paddingLeft: theme.spacing.unit * 10,
+        transition: theme.transitions.create('width'),
         width: '100%',
     },
 });
 
+
 function SearchAppBar(props) {
-    const { classes } = props;
+    const {classes} = props;
+    const inputElement = useRef(null);
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        const searchPhrase = inputElement.current.value;
+        const query = `/search?q=${encodeURI(searchPhrase)}`;
+
+        props.history.push(query);
+    }
+
     return (
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <div className={classes.grow} />
+                    <div className={classes.grow}/>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
-                            <SearchIcon />
+                            <SearchIcon/>
                         </div>
-                        <InputBase
-                            placeholder="Search…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                        />
+                        <form onSubmit={handleSubmit}>
+                            <InputBase
+                                placeholder="Search…"
+                                classes={{
+                                    root: classes.inputRoot,
+                                    input: classes.inputInput,
+                                }}
+                                inputRef={inputElement}
+                            />
+                        </form>
                     </div>
                 </Toolbar>
             </AppBar>
@@ -69,5 +83,4 @@ function SearchAppBar(props) {
     );
 }
 
-
-export default withStyles(styles)(SearchAppBar);
+export default withRouter(withStyles(styles)(SearchAppBar));

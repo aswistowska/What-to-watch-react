@@ -19,7 +19,6 @@ export default FetchMovieswithTracker = withTracker(({category, page}) => {
 
     const id = `${category}-${page}`;
 
-console.log(MoviesListsCache.findOne(id));
     const moviesList = moviesListHandle.ready() ? MoviesListsCache.findOne(id).results : [];
 
     return {

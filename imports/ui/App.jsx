@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import { BrowserRouter, Route, Switch} from 'react-router-dom'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
 import Movies from './Movies.jsx';
 import Home from './Home.jsx';
@@ -38,29 +38,34 @@ const theme = createMuiTheme({
 });
 
 const App = () => (
-        <BrowserRouter>
-            <MuiThemeProvider theme={theme}>
+    <BrowserRouter>
+        <MuiThemeProvider theme={theme}>
             <Fragment>
-            <header>
-                <Switch>
-                    <Route path='/movies/:category' component={
-                        (props) => <CenteredTabs category={props.match.params.category} />} />
-                    <Route path='/' component={()=> <CenteredTabs category='home' />} />
-                </Switch>
-            </header>
-            <Fragment>
-                <Switch>
-                <Route exact path='/' component={Home} />
-                <Route exact path='/movies/favourites' component={FavouritesList} />
-                <Route path='/movies/:category' component={
-                    (props) => <Movies category={props.match.params.category} />} />
-                <Route path='/movie/:id' component={(props)=> <FetchMovieDetails id={props.match.params.id} />}/>
-                    <Route path='/shared/:userId' component={(props) => <SharedFavourites userId={props.match.params.userId}/>}/>
-                </Switch>
+                <header>
+                    <Switch>
+                        <Route path='/movies/:category' component={
+                            (props) => <CenteredTabs category={props.match.params.category}/>}/>
+                        <Route path='/' component={() => <CenteredTabs category='home'/>}/>
+                    </Switch>
+                </header>
+                <Fragment>
+                    <Switch>
+                        <Route exact path='/' component={Home}/>
+                        <Route exact path='/movies/favourites' component={FavouritesList}/>
+                        <Route exact path='/movies/:category' component={
+                            (props) => <Movies category={props.match.params.category} page={1}/>}/>
+                        <Route path='/movies/:category/:page' component={
+                            (props) => <Movies category={props.match.params.category}
+                                               page={props.match.params.page}/>}/>
+                        <Route path='/movie/:id'
+                               component={(props) => <FetchMovieDetails id={props.match.params.id}/>}/>
+                        <Route path='/shared/:userId'
+                               component={(props) => <SharedFavourites userId={props.match.params.userId}/>}/>
+                    </Switch>
+                </Fragment>
             </Fragment>
-            </Fragment>
-            </MuiThemeProvider>
-        </BrowserRouter>
+        </MuiThemeProvider>
+    </BrowserRouter>
 );
 
 export default App;

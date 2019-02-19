@@ -33,7 +33,7 @@ const theme = createMuiTheme({
         text: {
             main: '#212121',
             dark: '#757575',
-            light: '#BDBDBD'
+            light: '#d2d2d2'
         }
     },
 });

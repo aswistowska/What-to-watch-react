@@ -47,15 +47,23 @@ const styles = theme =>  ({
     homeSubtitle: {
         fontSize: '100px',
         margin: 0,
-        paddingLeft: '10%',
+        paddingLeft: '20%',
     },
-
+    footer: {
+        backgroundColor: theme.palette.primary.dark,
+        borderRadius: theme.shape.borderRadius,
+        textAlign: 'center',
+        fontSize: '15px',
+        color: theme.palette.text.light,
+        padding: '.5%',
+    }
 });
 
 
 function Home(props) {
     const classes = props.classes;
     return (
+        <Fragment>
         <div className={classes.root}>
             <div className={classes.background}>
                 {props.moviesList.map(movie =>
@@ -67,6 +75,10 @@ function Home(props) {
                 <h2 className={classes.homeSubtitle}>What to Watch</h2>
             </div>
         </div>
+            <div className={classes.footer}>
+                <p>Create by Agata Swistowska</p>
+            </div>
+        </Fragment>
     );
 }
 
@@ -88,6 +100,6 @@ const tracker = () => {
         loading: true,
         totalPages: 0
     }
-}
+};
 
 export default withTracker(tracker)(withStyles(styles)(Home));

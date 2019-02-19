@@ -9,11 +9,11 @@ import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import AlertDialogWithTracker from './AlertDialog';
+import AlertDialog from './AlertDialog';
 import Movie from "./Movie";
 import {Favourites} from "../api/collections";
 
-const styles = {
+const styles = theme => ({
     input: {
         display: 'none',
     },
@@ -21,7 +21,7 @@ const styles = {
         border: '2px solid white',
         marginLeft: '10px',
     }
-};
+});
 
 
 function IconButtons(props) {
@@ -29,7 +29,7 @@ function IconButtons(props) {
 
     return (
         <Tooltip title='Add to favourites'>
-        <IconButton onClick={props.onClick} color="secondary" className={classes.button} aria-label="Add to favourites">
+        <IconButton onClick={props.onClick} color='secondary' className={classes.button} aria-label="Add to favourites">
             {props.isFavourite === 1 ? (<Icon>favorite</Icon>) : (<Icon style={{color: 'white'}}>favorite_border</Icon>)}
         </IconButton>
         </Tooltip>
@@ -46,7 +46,7 @@ function MovieDetails(props) {
             <div className='movieDetails'
                  style={{backgroundImage: `linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.8))${background_image_url}`}}>
             <h1>{props.movie.tagline}</h1>
-                <AlertDialogWithTracker />
+                <AlertDialog />
             <div className='movie-details-container'>
                 {props.movie.poster_path ? (<img src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2/${props.movie.poster_path}`}/>) : ''}
                 <div className='movie-details-contents'>

@@ -6,20 +6,56 @@ import {MoviesListsCache} from '../api/collections';
 
 import {Link} from 'react-router-dom'
 import Button from '@material-ui/core/Button';
+import {withStyles} from '@material-ui/core/styles';
+
+import Loading from "./Loading";
+
+
+const style = theme => {
+    return {
+        flex: {
+            display: 'flex',
+            justifyContent: 'space-between',
+            paddingTop: theme.spacing.unit,
+            paddingBottom: theme.spacing.unit
+        }
+    }
+};
+
+function pageUrl(category, page) {
+    return `/movies/${category}/${page}`
+}
+
+const Paginator = withStyles(style)((props) => {
+    const classes = props.classes;
+    const page = parseInt(props.page);
+    const isLast = page >= parseInt(props.totalPages);
+    const isFirst = page <= 1;
+
+    return (
+        <div className={classes.flex}>
+            <Button disabled={isFirst} component={Link} to={pageUrl(props.category, page + 1)} color='secondary'>
+                Previous</Button>
+            <Button disabled={isLast} component={Link} to={pageUrl(props.category, page + 1)} color='secondary'>
+                Next</Button>
+        </div>
+    )
+});
 
 
 function MoviesPage(props) {
-
     return (
         <Fragment>
             <h1>It's movies time!</h1>
-            <MoviesContainer movies={props.moviesList}/>
-            <Button component={Link} to={`/movies/${props.category}/${parseInt(props.page) > 1
-                ? parseInt(props.page) - 1 : props.page}`} color='secondary'>
-                Previous</Button>
-            <Button component={Link} to={`/movies/${props.category}/${parseInt(props.page) < parseInt(props.totalPages)
-                ? parseInt(props.page) + 1 : props.page}`} color='secondary'>
-                Next</Button>
+            {props.loading ? (
+                <Loading/>
+            ) : (
+                <>
+                    <Paginator {...props}/>
+                    <MoviesContainer movies={props.moviesList}/>
+                    <Paginator {...props}/>
+                </>
+            )}
         </Fragment>
     );
 }
@@ -45,4 +81,4 @@ export default MoviesPageWithTracker = withTracker(({category, page}) => {
         totalPages: 0
     }
 
-})(MoviesPage)
+})(MoviesPage);

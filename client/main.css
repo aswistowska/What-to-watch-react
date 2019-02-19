@@ -8,7 +8,7 @@ header {
 }
 
 h1 {
-    text-align: center;
+    /*text-align: center;*/
 }
 
 h2 span {
@@ -37,17 +37,6 @@ h2 span a{
     text-decoration: none;
 }
 
-.home-title {
-    margin-bottom: 10px;
-    text-align: left;
-    font-size: 80px;
-}
-
-.home-subtitle {
-    margin-top: 0px;
-    text-align: center;
-    font-size: 100px;
-}
 
 .tabCustomStyle {
     display: flex;

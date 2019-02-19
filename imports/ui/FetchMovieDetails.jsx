@@ -19,7 +19,7 @@ function FetchMovieDetails(props) {
     });
 
     return (
-        Object.keys(movie).length !== 1 ?
+        !props.loading ?
             (<MovieDetails movie={movie} toggleFavourite={toggleFavourite}/>) : (<Loading/>)
     )
 }

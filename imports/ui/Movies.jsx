@@ -34,7 +34,7 @@ const Paginator = withStyles(style)((props) => {
 
     return (
         <div className={classes.flex}>
-            <Button disabled={isFirst} component={Link} to={pageUrl(props.category, page + 1)} color='secondary'>
+            <Button disabled={isFirst} component={Link} to={pageUrl(props.category, page - 1)} color='secondary'>
                 Previous</Button>
             <Button disabled={isLast} component={Link} to={pageUrl(props.category, page + 1)} color='secondary'>
                 Next</Button>

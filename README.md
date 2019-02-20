@@ -2,7 +2,7 @@
 
 Project: What to Watch
 
-An Web Application s simple React.js based Web App to display lists of popular, top rated and now playing movies. 
+A Web Application s simple React.js based Web App to display lists of popular, top rated and now playing movies. 
 It allows users to create a personal list with favourites movies, share the link and compare lists with others. 
 That helps people decide What to Watch today, together, easier.
 
